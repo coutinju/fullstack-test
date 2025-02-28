@@ -7,8 +7,11 @@
         <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined"></fa-icon>
         <span jhiTranslate="userManagement.home.refreshListLabel">Refresh list</span>
       </button>
-      <button class="btn btn-primary jh-create-entity" [routerLink]="['./new']">
+      <button class="btn btn-primary jh-create-entity me-2" [routerLink]="['./new']">
         <fa-icon icon="plus"></fa-icon> <span jhiTranslate="userManagement.home.createLabel">Create a new user</span>
+      </button>
+      <button class="btn btn-danger" (click)="deleteAllUsers()">
+        <fa-icon icon="trash-alt"></fa-icon> <span jhiTranslate="userManagement.home.deleteAllUsersLabel">Delete all users</span>
       </button>
     </div>
   </h2>

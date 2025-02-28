@@ -35,6 +35,10 @@ export class UserManagementService {
     return this.http.delete(`${this.resourceUrl}/${login}`);
   }
 
+  deleteAllUsers(): Observable<{}> {
+    return this.http.delete(`${this.resourceUrl}/role/user`);
+  }
+
   authorities(): Observable<string[]> {
     return this.http
       .get<{ name: string }[]>(this.applicationConfigService.getEndpointFor('api/authorities'))

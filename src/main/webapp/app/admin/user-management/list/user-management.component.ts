@@ -13,6 +13,7 @@ import { AccountService } from 'app/core/auth/account.service';
 import { UserManagementService } from '../service/user-management.service';
 import { User } from '../user-management.model';
 import UserManagementDeleteDialogComponent from '../delete/user-management-delete-dialog.component';
+import { AlertService } from '../../../core/util/alert.service';
 
 @Component({
   selector: 'jhi-user-mgmt',
@@ -33,6 +34,7 @@ export default class UserManagementComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly sortService = inject(SortService);
   private readonly modalService = inject(NgbModal);
+  private readonly alertService = inject(AlertService);
 
   ngOnInit(): void {
     this.handleNavigation();
@@ -54,6 +56,12 @@ export default class UserManagementComponent implements OnInit {
       if (reason === 'deleted') {
         this.loadAll();
       }
+    });
+  }
+
+  deleteAllUsers(): void {
+    this.userService.deleteAllUsers().subscribe({
+      next: () => this.loadAll(),
     });
   }
 
