@@ -228,6 +228,22 @@ public class UserService {
             });
     }
 
+    public void deleteUsersWithRole(String role) {
+        if ("user".equalsIgnoreCase(role)) {
+            role = "ROLE_USER";
+        }
+        Authority authority = authorityRepository.findByName(role);
+        if (authority == null) {
+            return;
+        }
+        List<User> users = userRepository
+            .findAll()
+            .stream()
+            .filter(user -> user.getAuthorities().size() == 1 && user.getAuthorities().contains(authority))
+            .toList();
+        userRepository.deleteAll(users);
+    }
+
     /**
      * Update basic information (first name, last name, email, language) for the current user.
      *

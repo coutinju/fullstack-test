@@ -205,4 +205,18 @@ public class UserResource {
         userService.deleteUser(login);
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, "userManagement.deleted", login)).build();
     }
+
+    /**
+     * {@code DELETE /admin/users/role/:role} : delete the Users with a specific role.
+     *
+     * @param role the role of the users to delete.
+     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
+     */
+    @DeleteMapping("/users/role/{role}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public ResponseEntity<Void> deleteUsersWithRole(@PathVariable("role") @Pattern(regexp = Constants.ROLE_REGEX) String role) {
+        LOG.debug("REST request to delete Users with role: {}", role);
+        userService.deleteUsersWithRole(role);
+        return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, "userManagement.roleDeleted", role)).build();
+    }
 }
